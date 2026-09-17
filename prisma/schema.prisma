@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                     String   @id @default(cuid())
+  email                  String   @unique
+  passwordHash           String
+  companyName            String
+  mcNumber               String?
+  defaultFreeTimeMinutes Int      @default(120)
+  defaultRatePerHour     Float    @default(50)
+  createdAt              DateTime @default(now())
+
+  loads  Load[]
+  claims Claim[]
+}
+
+// SQLite has no native enum support, so status fields are plain strings.
+// Valid values: PLANNED | AT_PICKUP | IN_TRANSIT | AT_DELIVERY | COMPLETED
+model Load {
+  id              String   @id @default(cuid())
+  userId          String
+  referenceNumber String
+  brokerName      String
+  brokerEmail     String?
+
+  shipperName  String
+  shipperCity  String?
+  shipperState String?
+
+  receiverName  String
+  receiverCity  String?
+  receiverState String?
+
+  rateConText String?
+
+  freeTimeMinutesPickup   Int   @default(120)
+  freeTimeMinutesDelivery Int   @default(120)
+  ratePerHour             Float @default(50)
+
+  pickupAppointmentAt DateTime?
+  pickupArrivedAt     DateTime?
+  pickupDepartedAt    DateTime?
+
+  deliveryAppointmentAt DateTime?
+  deliveryArrivedAt     DateTime?
+  deliveryDepartedAt    DateTime?
+
+  status String @default("PLANNED")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  claim Claim?
+
+  @@index([userId])
+}
+
+// Valid values: DRAFT | SENT | ACKNOWLEDGED | PAID | DISPUTED | REJECTED
+model Claim {
+  id String @id @default(cuid())
+
+  loadId String @unique
+  userId String
+
+  pickupDetentionMinutes   Int
+  deliveryDetentionMinutes Int
+  totalDetentionMinutes    Int
+  ratePerHour              Float
+  amount                   Float
+
+  status String @default("DRAFT")
+
+  notes  String?
+  sentAt DateTime?
+  paidAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  load Load @relation(fields: [loadId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
