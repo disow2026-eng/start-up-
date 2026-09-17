@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DockClock — Get paid for every hour you wait</title>
+  <meta
+    name="description"
+    content="DockClock timestamps every minute your truck waits at a dock and turns it into a detention invoice shippers and brokers can't argue with."
+  />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230B1220%22/><circle cx=%2250%22 cy=%2250%22 r=%2230%22 fill=%22none%22 stroke=%22%23E8590C%22 stroke-width=%228%22/><path d=%22M50 32v20l14 10%22 fill=%22none%22 stroke=%22%23E8590C%22 stroke-width=%228%22 stroke-linecap=%22round%22/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/marketing.css" />
+</head>
+<body>
+  <div id="nav-root"></div>
+
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container hero-grid">
+      <div class="fade-up">
+        <span class="badge badge-amber" style="background:rgba(255,255,255,0.1);color:#fdba8c;">For owner-operators &amp; small fleets</span>
+        <h1 style="margin-top:20px;">Get paid for every hour<br />you wait at the dock.</h1>
+        <p class="lede">
+          DockClock timestamps your arrival and departure at every stop, calculates detention pay
+          automatically, and turns it into an invoice brokers can't brush off.
+        </p>
+        <div class="hero-cta">
+          <a href="signup.html" id="hero-cta-primary" class="btn btn-accent btn-lg">Start tracking free</a>
+          <a href="#how-it-works" class="btn btn-ghost btn-lg" style="color:#e4e8ee;">See how it works</a>
+        </div>
+        <p class="hero-note">No account recovery, no server &mdash; works fully in your browser &middot; Set up your first load in 2 minutes</p>
+      </div>
+
+      <div class="fade-up" style="animation-delay:150ms;">
+        <div class="invoice-mock">
+          <div class="invoice-mock-head">
+            <div>
+              <p style="font-family:var(--font-display);font-size:14px;font-weight:800;">Detention Invoice</p>
+              <p style="font-size:12px;color:var(--ink-400);">DC-48213</p>
+            </div>
+            <span class="badge badge-green">Paid</span>
+          </div>
+          <div class="invoice-mock-row">
+            <span style="color:var(--ink-500);">Pickup — Reyes Produce, McAllen TX</span>
+            <span style="font-weight:600;">1h 40m billable</span>
+          </div>
+          <div class="invoice-mock-row">
+            <span style="color:var(--ink-500);">Delivery — Midtown DC, Dallas TX</span>
+            <span style="font-weight:600;">2h 05m billable</span>
+          </div>
+          <div class="invoice-mock-total">
+            <span style="font-size:14px;font-weight:600;color:var(--ink-600);">Total due</span>
+            <span style="font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--amber-600);">$187.50</span>
+          </div>
+          <div class="shimmer-bar"></div>
+          <p style="margin-top:8px;text-align:center;font-size:11px;color:var(--ink-400);">Sent → Acknowledged → Paid in 9 days</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Detention pay is owed. It just never gets collected.</h2>
+        <p>
+          Most rate confirmations already promise detention pay after a set amount of free time.
+          The problem isn't the contract — it's that nobody keeps clean enough records to invoice
+          for it, so drivers write it off as the cost of doing business.
+        </p>
+      </div>
+      <div class="grid-3">
+        <div class="problem-card">
+          <p class="title">No timestamp, no claim</p>
+          <p class="body">A text to dispatch or a memory of "I waited forever" doesn't hold up when a broker pushes back.</p>
+        </div>
+        <div class="problem-card">
+          <p class="title">Buried in paperwork</p>
+          <p class="body">Rate confirmations bury free-time and detention-rate clauses in dense text nobody re-reads at the dock.</p>
+        </div>
+        <div class="problem-card">
+          <p class="title">Too much friction to chase</p>
+          <p class="body">By the time you're home, it's easier to move on to the next load than fight for $80 from three loads ago.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works" class="section section-white">
+    <div class="container">
+      <div class="section-head">
+        <h2>Three taps. Zero paperwork.</h2>
+        <p>The whole system runs on two buttons you're already reaching for at every stop.</p>
+      </div>
+      <div class="grid-3">
+        <div class="step">
+          <span class="num">01</span>
+          <p class="title">Log your arrival</p>
+          <p class="body">One tap the moment you check in at the shipper or receiver. DockClock timestamps it — no app fumbling required.</p>
+        </div>
+        <div class="step">
+          <span class="num">02</span>
+          <p class="title">Log your departure</p>
+          <p class="body">Tap again when you pull out. We measure the wait, subtract your free time, and calculate billable detention automatically.</p>
+        </div>
+        <div class="step">
+          <span class="num">03</span>
+          <p class="title">Send the invoice</p>
+          <p class="body">A professional, itemized detention invoice is generated the moment your delivery is complete — ready to email the broker.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Built around the two minutes you actually have</h2>
+        <p>Not another dashboard to babysit. Just the record you need, when you need it.</p>
+      </div>
+      <div class="grid-2">
+        <div class="feature-card">
+          <span class="feature-icon">⏱</span>
+          <p class="title">Automatic detention math</p>
+          <p class="body">Set your free time and rate once — every load calculates billable hours the instant you log a departure.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">✨</span>
+          <p class="title">Smart rate confirmation paste</p>
+          <p class="body">Paste a rate confirmation and pattern-matching pulls the broker, appointment times, free time, and rate — all client-side, nothing sent anywhere.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🧾</span>
+          <p class="title">Invoices that hold up</p>
+          <p class="body">Every invoice ships with arrival and departure timestamps baked in, not just a total — the kind of detail that ends disputes fast.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">📊</span>
+          <p class="title">See what you're actually owed</p>
+          <p class="body">A running total of detention tracked, sent, and recovered — across every load, every broker, all year.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonial-section">
+    <div class="container">
+      <p class="quote">"I used to eat two or three hours of detention a week and never think twice about it. Now it's an invoice before I even leave the yard."</p>
+      <p class="attrib">— Owner-operator, dry van, Texas triangle</p>
+    </div>
+  </section>
+
+  <section id="pricing" class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Simple pricing, no surprises</h2>
+        <p>Start free. Upgrade once DockClock starts paying for itself — usually with your first invoice.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="plan-card">
+          <p class="plan-name">Starter</p>
+          <p class="plan-body">For drivers trying it out</p>
+          <div class="plan-price"><span class="amount">Free</span></div>
+          <ul class="plan-features">
+            <li><span class="check">✓</span>Unlimited loads (this browser only)</li>
+            <li><span class="check">✓</span>Automatic detention calculation</li>
+            <li><span class="check">✓</span>Manual load entry + smart paste</li>
+            <li><span class="check">✓</span>Printable invoices</li>
+          </ul>
+          <a href="signup.html" class="btn btn-outline">Start free</a>
+        </div>
+        <div class="plan-card highlighted">
+          <span class="plan-badge">MOST POPULAR</span>
+          <p class="plan-name">Pro</p>
+          <p class="plan-body">For owner-operators running full-time</p>
+          <div class="plan-price"><span class="amount">$19</span><span class="period">/ truck / mo</span></div>
+          <ul class="plan-features">
+            <li><span class="check">✓</span>Cloud sync across devices</li>
+            <li><span class="check">✓</span>Full claim &amp; payment tracking</li>
+            <li><span class="check">✓</span>Broker email delivery</li>
+            <li><span class="check">✓</span>Priority email support</li>
+          </ul>
+          <a href="signup.html" class="btn btn-accent">Start free trial</a>
+        </div>
+        <div class="plan-card">
+          <p class="plan-name">Fleet</p>
+          <p class="plan-body">For small fleets &amp; dispatchers</p>
+          <div class="plan-price"><span class="amount">Custom</span></div>
+          <ul class="plan-features">
+            <li><span class="check">✓</span>Everything in Pro</li>
+            <li><span class="check">✓</span>Multiple driver seats</li>
+            <li><span class="check">✓</span>Fleet-wide detention reporting</li>
+            <li><span class="check">✓</span>API access</li>
+          </ul>
+          <a href="signup.html" class="btn btn-outline">Talk to us</a>
+        </div>
+      </div>
+      <p style="text-align:center;margin-top:24px;font-size:12px;color:var(--ink-400);">
+        This build runs entirely in your browser (Starter tier only) — Pro/Fleet cloud sync isn't wired up yet.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-white">
+    <div class="container">
+      <h2 style="text-align:center;">Questions, answered</h2>
+      <div id="faq-root"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="final-cta">
+        <div class="final-cta-glow"></div>
+        <h2>Your next load is going to sit at a dock. Get ready to bill for it.</h2>
+        <a href="signup.html" class="btn btn-accent btn-lg">Create your free account</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-root"></div>
+
+  <script type="module" src="js/pages/landing.js"></script>
+</body>
+</html>

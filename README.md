@@ -7,6 +7,9 @@ automatically calculates billable detention time against each load's free-time
 and rate terms, and turns it into a professional invoice a broker can't
 easily argue with.
 
+This build is a **plain HTML/CSS/JavaScript static site** — no framework, no
+build step, no backend. It's designed to be pushed straight to GitHub Pages.
+
 ## The problem
 
 Most freight rate confirmations already promise detention pay once a truck
@@ -25,73 +28,82 @@ This is a real, recurring, quantifiable loss for a specific audience —
 **owner-operators and small trucking fleets (1–20 trucks)** — not an
 imagined inconvenience. The product has a reason to exist with zero AI
 involved: a timestamp clock, a detention calculator, and an invoice
-generator. AI is used in exactly one place it earns its keep — parsing the
-inconsistent free-form text of a rate confirmation into structured fields —
-and the app is fully functional without it.
+generator.
 
-## Why this, and not another idea
+## Important limitations of this build
 
-Before building, I evaluated several niche B2B problems for a specific,
-underserved audience with real financial pain (not another AI wrapper):
-grant-compliance reporting for small nonprofits, warranty-claim tracking for
-home-service contractors, security-deposit dispute documentation for small
-landlords, and detention-pay tracking for owner-operator truckers. Detention
-tracking won because the pain is immediate and dollar-denominated (drivers
-already know they're owed money and already know roughly how often it
-happens), the record-keeping problem is solvable with a very small, buildable
-MVP, the audience is large (millions of U.S. truck drivers, a large share
-owner-operators or small fleets) and reachable through trucking
-Facebook groups / forums / YouTube channels, and the willingness to pay is
-obvious — the product pays for itself the first time it recovers an invoice.
+Being a static site with no server changes what the product can honestly
+claim, on purpose rather than by accident:
 
-## Product roadmap
+- **All data lives in your browser's `localStorage`.** There is no database,
+  no sync across devices, and no account recovery. Clearing site data, using
+  a private window, or switching browsers loses everything. Use
+  **Settings → Export backup** regularly, and **Import backup** to restore.
+- **"Accounts" are not real security.** Passwords are hashed client-side
+  (`js/lib/hash.js`, SHA-256 + salt via the Web Crypto API) so they aren't
+  sitting in plain text in devtools, but anyone with browser devtools can
+  read or edit `localStorage` directly and bypass login entirely. Fine for a
+  demo; don't put real sensitive data in it.
+- **No real AI.** A static site has nowhere safe to hold an API key —
+  anything in client-side JS is visible to every visitor via "view source" or
+  the network tab. So "New Load" has a **smart paste** feature instead: a
+  regex/heuristic parser (`js/core/rateConParser.js`) that pattern-matches
+  common rate-confirmation fields, entirely client-side. It's honestly
+  labeled as pattern matching, not AI, and will miss fields a real LLM
+  wouldn't.
+- **Pricing tiers on the landing page describe the product's intended
+  direction** (Pro/Fleet with cloud sync), not what this build implements.
+  Only the free, browser-local tier is actually wired up here.
 
-- **MVP (this build):** auth, load creation (manual + AI-assisted rate
-  confirmation parsing), one-tap arrival/departure logging per stop,
-  automatic detention math, auto-generated invoices with status tracking
-  (draft → sent → acknowledged/disputed → paid), dashboard of
-  tracked/pending/recovered totals.
-- **Next:** email delivery of invoices directly to the broker (not just
-  print/PDF), SMS-based time logging for drivers who don't want to open the
-  app mid-dock, geofenced auto-arrival detection, multi-truck/dispatcher
-  seats (the "Fleet" plan).
-- **Later:** integrations with load boards / TMS platforms (e.g. importing
-  loads from a broker portal instead of pasting rate confirmation text),
-  a factoring-style "we collect it, you get paid faster" premium tier,
-  aggregate/anonymized broker detention-reliability scores.
+## Target customer & roadmap
 
-## Tech stack
+Owner-operators and small trucking fleets who already know detention is
+owed but don't have a clean way to prove or invoice it. Roadmap beyond this
+static build: a real backend (Postgres) for cross-device sync and multi-seat
+fleet accounts, email delivery of invoices to brokers, geofenced
+auto-arrival detection, and — once there's a server to hold a key — genuine
+LLM-based rate confirmation parsing in place of the regex heuristics.
 
-- **Next.js 15** (App Router) + **TypeScript** + **Tailwind CSS**
-- **Prisma** + **PostgreSQL**. Required, not optional — Vercel's serverless
-  functions have no persistent writable disk, so SQLite can't work in
-  production there (see `prisma/schema.prisma`).
-- **NextAuth** (credentials provider, bcrypt password hashing)
-- **Anthropic API** (`claude-haiku-4-5`) for optional rate-confirmation
-  parsing — the app works fully without an API key
+## Project structure
+
+```
+index.html, login.html, signup.html      — public pages
+app/*.html                                — the logged-in dashboard pages
+css/                                      — tokens, base, components, per-section styles
+js/lib/       generic, app-agnostic helpers (DOM, storage, currency, hashing, ...)
+js/data/      the "database" layer — localStorage-backed CRUD for users/loads/claims
+js/core/      pure business logic — detention math, invoice view-model, rate-con parser
+js/ui/        small reusable DOM-building components (sidebar, badges, tables, ...)
+js/pages/     one controller per HTML page, wiring data + ui together
+```
+
+Everything is native ES modules (`<script type="module">`) — no bundler, no
+`npm install`, no build step. Open `index.html` in a browser or serve the
+folder with any static file server.
 
 ## Running locally
 
-Requires a Postgres database — either a local instance or a free hosted one
-(e.g. [Neon](https://neon.tech)).
-
 ```bash
-npm install
-cp .env.example .env   # fill in DATABASE_URL and NEXTAUTH_SECRET (openssl rand -base64 32)
-npx prisma db push
-npm run dev
+# any static server works, e.g.:
+npx serve .
+# or
+python3 -m http.server 8080
 ```
 
-Visit `http://localhost:3000`. Sign up, create a load, tap through
+Then visit the URL it prints. Sign up, create a load, tap through
 arrival/departure at pickup and delivery, and an invoice is generated
 automatically the moment the delivery departure is logged.
 
-To enable AI-assisted rate confirmation parsing, set `ANTHROPIC_API_KEY` in
-`.env`. Without it, the "New Load" screen simply shows the manual entry form.
+## Deploying to GitHub Pages
+
+1. Push this repository to GitHub.
+2. Repo **Settings → Pages** → set the source to the branch you pushed
+   (root directory) — no build step needed, it's already static.
+3. Your site is live at `https://<username>.github.io/<repo>/`.
 
 ## Core logic
 
-The entire billing model lives in `lib/detention.ts` as pure functions —
+The entire billing model lives in `js/core/detention.js` as pure functions —
 wait time per stop minus free time, floored at zero, times the hourly rate.
-`lib/anthropic.ts` is the one AI integration point, isolated behind an
-`aiExtractionAvailable()` check so every other code path is AI-agnostic.
+`js/core/rateConParser.js` is the one "smart" feature, isolated so it's
+obvious it's regex, not a network call.

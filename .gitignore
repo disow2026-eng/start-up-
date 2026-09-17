@@ -1,12 +1,3 @@
-node_modules
-.next
-out
-dist
-.env
-.env.local
-*.log
-npm-debug.log*
 .DS_Store
-prisma/dev.db
-prisma/dev.db-journal
-*.tsbuildinfo
+*.log
+node_modules

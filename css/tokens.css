@@ -1,0 +1,46 @@
+:root {
+  --ink-950: #0b1220;
+  --ink-900: #0f1526;
+  --ink-800: #1a2238;
+  --ink-700: #293350;
+  --ink-600: #374260;
+  --ink-500: #4a5776;
+  --ink-400: #6b7a98;
+  --ink-300: #9daac0;
+  --ink-200: #c7cfdb;
+  --ink-100: #e4e8ee;
+  --ink-50: #f3f5f8;
+
+  --amber-700: #9e3708;
+  --amber-600: #c64607;
+  --amber-500: #e8590c;
+  --amber-400: #ff7a33;
+  --amber-300: #ffa066;
+  --amber-200: #ffc6a3;
+  --amber-100: #ffe4d2;
+  --amber-50: #fff4ed;
+
+  --green-600: #059669;
+  --green-100: #d1fae5;
+  --red-600: #dc2626;
+  --red-100: #fee2e2;
+  --blue-600: #2563eb;
+  --blue-100: #dbeafe;
+
+  --paper: #fbfaf8;
+  --white: #ffffff;
+
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Manrope", var(--font-sans);
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  --shadow-card: 0 1px 2px rgba(11, 18, 32, 0.04), 0 8px 24px -8px rgba(11, 18, 32, 0.1);
+  --shadow-pop: 0 4px 12px -2px rgba(232, 89, 12, 0.35);
+
+  --container-max: 1152px;
+}
