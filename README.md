@@ -63,17 +63,21 @@ obvious — the product pays for itself the first time it recovers an invoice.
 ## Tech stack
 
 - **Next.js 15** (App Router) + **TypeScript** + **Tailwind CSS**
-- **Prisma** + **SQLite** for local dev (swap the `datasource` provider to
-  `postgresql` for production — one line, see `prisma/schema.prisma`)
+- **Prisma** + **PostgreSQL**. Required, not optional — Vercel's serverless
+  functions have no persistent writable disk, so SQLite can't work in
+  production there (see `prisma/schema.prisma`).
 - **NextAuth** (credentials provider, bcrypt password hashing)
 - **Anthropic API** (`claude-haiku-4-5`) for optional rate-confirmation
   parsing — the app works fully without an API key
 
 ## Running locally
 
+Requires a Postgres database — either a local instance or a free hosted one
+(e.g. [Neon](https://neon.tech)).
+
 ```bash
 npm install
-cp .env.example .env   # fill in NEXTAUTH_SECRET (openssl rand -base64 32)
+cp .env.example .env   # fill in DATABASE_URL and NEXTAUTH_SECRET (openssl rand -base64 32)
 npx prisma db push
 npm run dev
 ```
